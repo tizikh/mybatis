@@ -19,4 +19,8 @@ public class QueryVo implements Serializable {
                 "user=" + user +
                 '}';
     }
+
+    public static void main(String[] args) {
+        System.out.println("helloWorld");
+    }
 }
