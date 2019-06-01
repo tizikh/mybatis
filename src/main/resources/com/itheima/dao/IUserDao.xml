@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.dao.IUserDao">
+    <!-- 根据id查询 -->
+    <select id="findById" resultType="com.itheima.domain.User" parameterType="int">
+        select * from user where id=#{uid}
+    </select>
+    <!-- 查询所有操作 -->
+    <select id="findAll" resultType="com.itheima.domain.User">
+        select * from user
+    </select>
+    <!-- 保存用户 -->
+   <insert id="saveUser" parameterType="com.itheima.domain.User">
+<selectKey keyColumn="id" keyProperty="id" resultType="int">
+    select last_insert_id();
+</selectKey>
+        insert into user(username,birthday,sex,address)values(#{username},#{birthday},#{sex},#{address})
+    </insert>
+    <!--更新用户-->
+    <!--<update id="updateUser" parameterType="com.itheima.domain.User">
+        update user set username=#{username},birthday=#{birthday},sex=#{sex},  address=#{address} where id=#{id}
+    </update>-->
+    <!--&lt;!&ndash; 删除用户 &ndash;&gt;-->
+    <!--<delete id="deleteUser" parameterType="com.itheima.domain.User">
+        delete from user where id = #{uid}
+    </delete>-->
+    <!-- 模糊查询 -->
+    <!--<select id="findByName" parameterType="com.itheima.domain.User" resultType="com.itheima.domain.User">
+        select * from user where username like #{username}
+    </select>-->
+    <!-- 查询总记录数 -->
+    <select id="findTotal" resultType="int">
+        select count(*) from user
+    </select>
+    <!-- 根据用户名进行模糊查询，参数变为QueryVo对象 -->
+    <select id="findByVo" parameterType="com.itheima.domain.QueryVo" resultType="com.itheima.domain.User">
+        select * from user where username like #{user.username}
+    </select>
+    <!--查询参数是map-->
+    <select id="findByMap" parameterType="map" resultType="com.itheima.domain.User">
+        select * from user where id = #{id} and username = #{username}
+    </select>
+</mapper>
